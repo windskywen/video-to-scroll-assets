@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="session-token" content="__SESSION_TOKEN__">
+  <title>Scroll Asset Studio</title>
+  <link rel="stylesheet" href="/assets/studio.css">
+  <script defer src="/assets/player.js"></script><script defer src="/assets/studio.js"></script>
+</head>
+<body>
+  <header class="top"><div><span class="mark">S / A</span><strong>Scroll Asset Studio</strong><span class="muted">Video → scroll assets</span></div><span class="local">● Local processing</span></header>
+  <main class="layout">
+    <aside class="panel">
+      <div class="intro"><span class="eyebrow">01 / SOURCE & SETTINGS</span><h1>Put your frames in motion.</h1><p>Choose a clip, adjust each crop, and review your assets.</p></div>
+      <label class="upload" for="file"><span id="filename">Choose video</span><small>MP4, MOV, WebM and more · Files stay local</small></label>
+      <input id="file" type="file" accept="video/*,.mkv,.avi" class="visually-hidden">
+      <p id="source-meta" class="muted small">Video details appear after loading.</p>
+      <form id="settings">
+        <fieldset id="media-fields" disabled>
+          <label>Asset name<input id="name" value="scroll-assets" maxlength="64" pattern="[A-Za-z0-9][A-Za-z0-9_-]*"></label>
+          <div class="row"><label>Start time (s)<input id="start" type="number" min="0" step="0.001"></label><label>End time (s)<input id="end" type="number" min="0" step="0.001"></label></div>
+          <div class="row"><label>Max sampling fps<input id="fps" type="number" min="1" max="120" step="any"></label><label>WebP quality<input id="quality" type="number" min="1" max="100" value="82"></label></div>
+          <p class="hint">Uses real source frames without interpolation. The end time is excluded.</p>
+          <div class="variant" data-variant="desktop">
+            <div class="variant-head"><label class="check"><input id="desktop-enabled" type="checkbox" checked>Desktop assets</label><span>DESKTOP</span></div>
+            <div class="row"><label>Max width (px)<input id="desktop-width" type="number" min="64" max="3840" step="1" value="1920"></label><label>Aspect ratio<select id="desktop-ratio"><option value="original">Original</option><option>16:9</option><option>9:16</option><option>4:3</option><option>3:4</option><option>1:1</option><option>21:9</option></select></label></div>
+            <label>Horizontal crop<input id="desktop-x" type="range" min="0" max="100" value="50"></label>
+            <label>Vertical crop<input id="desktop-y" type="range" min="0" max="100" value="50"></label>
+          </div>
+          <div class="variant" data-variant="mobile">
+            <div class="variant-head"><label class="check"><input id="mobile-enabled" type="checkbox" checked>Mobile assets</label><span>MOBILE</span></div>
+            <div class="row"><label>Max width (px)<input id="mobile-width" type="number" min="64" max="3840" step="1" value="960"></label><label>Aspect ratio<select id="mobile-ratio"><option value="original">Original</option><option>9:16</option><option>16:9</option><option>3:4</option><option>4:3</option><option>1:1</option><option>21:9</option></select></label></div>
+            <label>Horizontal crop<input id="mobile-x" type="range" min="0" max="100" value="50"></label>
+            <label>Vertical crop<input id="mobile-y" type="range" min="0" max="100" value="50"></label>
+          </div>
+          <p id="estimate" class="hint"></p>
+        </fieldset>
+        <button id="render" class="primary" type="submit" disabled>Generate assets and preview</button>
+      </form>
+      <div class="status"><progress id="progress" max="100" value="0"></progress><p id="status" role="status" aria-live="polite">Choose a video to get started.</p><p id="error" role="alert"></p></div>
+    </aside>
+    <section class="workspace">
+      <div class="workspace-heading"><div><span class="eyebrow">02 / REVIEW</span><h2>Preview workspace</h2></div><span id="revision" class="badge">No preview yet</span></div>
+      <div class="toolbar">
+        <div class="tabs" aria-label="Preview variant"><button id="view-desktop" class="active" type="button">Desktop</button><button id="view-mobile" type="button">Mobile</button></div>
+        <label>Scroll distance<select id="distance"><option value="1000">1,000 px</option><option value="2000" selected>2,000 px</option><option value="4000">4,000 px</option></select></label>
+        <label>Display<select id="fit"><option value="contain">Contain</option><option value="cover">Cover</option></select></label>
+      </div>
+      <label class="check motion-check"><input id="motion" type="checkbox" checked>Enable scroll preview<span class="muted small">Preview only; exported assets stay the same</span></label>
+      <div id="scrollbox" class="scrollbox" tabindex="0" aria-label="Scroll here to review the assets">
+        <div id="track" class="track"><div class="stage"><div id="viewport" class="viewport"><canvas id="canvas" aria-label="Scroll asset frame"></canvas><div id="empty" class="empty"><span>SCROLL TO EXPLORE</span><p>Generate assets, then scroll here to review them.</p></div></div><span class="scroll-note">Scroll inside this area ↕</span></div></div>
+      </div>
+      <div class="scrubber"><input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Asset progress"><output id="frame-label">0 / 0</output></div>
+      <div id="stats" class="stats">Set a separate aspect ratio and crop for each variant.</div>
+      <div class="review-links" id="review-links"></div>
+      <details id="source-details"><summary>Source video and crop guide</summary><p class="hint">Select Desktop or Mobile above, then adjust the crop sliders. The outline shows the retained area. Regenerate to inspect the actual assets.</p><div class="source-wrap"><video id="source-video" controls muted playsinline preload="metadata"></video><img id="source-poster" alt="First source frame" hidden><div id="crop-box"></div></div><p class="hint" id="video-note"></p></details>
+      <div class="export-bar"><div><strong id="ready-label">Ready to keep this version?</strong><p class="muted small">The pack includes settings, frame timestamps, and a standalone preview.</p></div><button id="confirm" class="primary" disabled>Confirm and export</button></div>
+      <div id="delivery" class="delivery" hidden></div>
+    </section>
+  </main>
+  <noscript>Enable JavaScript to use the studio. Exported packs include static posters.</noscript>
+</body></html>

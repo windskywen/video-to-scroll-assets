@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scroll Asset Studio"
+  short_description: "Turn video clips into reviewable scroll-scrubbing asset packs"
+  default_prompt: "Use $video-to-scroll-assets to turn my selected video segment into desktop and mobile frame sequences with an editable scroll preview."

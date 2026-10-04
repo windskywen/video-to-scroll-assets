@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scroll Assets · Asset preview</title><link rel="stylesheet" href="preview.css">
+<script defer src="manifest.js"></script><script defer src="player.js"></script><script defer src="preview.js"></script></head>
+<body><main><header><span>SCROLL ASSET PACK</span><h1>Asset preview</h1><p id="info"></p></header>
+<div class="controls"><label>Asset variant <select id="variant"></select></label><label>Scroll distance <select id="distance"><option value="1000">1,000 px</option><option value="2000" selected>2,000 px</option><option value="4000">4,000 px</option></select></label><label><input type="checkbox" id="motion" checked> Enable scrolling</label></div>
+<div id="scrollbox" tabindex="0" aria-label="Scroll to preview"><div id="track"><div id="stage"><canvas id="canvas" aria-label="Asset frame"></canvas><span>Scroll up or down ↕</span></div></div></div>
+<div class="scrubber"><input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Asset progress"><output id="position"></output></div>
+<p id="stats"></p><p class="hint">Use this preview to review the assets. Hand the images, manifest.json, and settings.json to any website project. To revise the assets, invoke $video-to-scroll-assets in Codex with the original video and this settings.json.</p>
+<noscript>Static posters: __POSTER_LINKS__</noscript>
+</main></body></html>
